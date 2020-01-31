@@ -12,6 +12,9 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <style>
+    body{
+      background: #ecf0f5;
+    }
     .dashboard-counters{
       width: 100%;
       display: flex;
@@ -57,9 +60,14 @@
     .left-chart{
       display: flex;
       align-items: center;
+      overflow: hidden;
     }
     .left-chart > div{
       width: 100%;
+      overflow: hidden;
+    }
+    .left-chart > .highcharts-container, .left-chart > svg {
+      /* width: 100%!important; */
     }
 
     .bottom-charts, .top-charts{
@@ -67,38 +75,85 @@
       width:100%;
     }
     .bottom-charts{
+      margin-top: -5px;
       position: relative;
     }
     .pentagon {
-      left: 30%;
-      width: 17.2%;
-      top: 0px;
-      height: 21px;
-
+      left: 27%;
+      width: 28.2%;
+      top: -66px;
+      height: 163px;
       position: absolute;
       /* width: 54px; */
-      box-sizing: content-box;
-      border-width: 96px 18px 0;
-      border-style: solid;
-      border-color: red transparent;
+      /* box-sizing: content-box; */
     }
-    .pentagon2 {
-        /* content: ""; */
-        position: absolute;
-        height: 0;
-        width: 17.2%;
-        top: -35px;
-
-        left: 30%;
-        border-width: 0 73px 35px;
-        border-style: solid;
-        border-color: transparent transparent red;
+    .pentagon-text {
+      text-align: center;
+      left: 31%;
+      width: 21.2%;
+      top: -12px;
+      /* height: 140px; */
+      position: absolute;
+      /* width: 54px; */
+      /* box-sizing: content-box; */
+      font-weight: bold;
+    }
+    .chart-label{
+      padding: 4px!important;
+      width: calc(91px + 10%);
+      height: 17px;
+      font-weight: bold;
+      line-height: 17px;
+      color: white;
+      position: absolute;
+    }
+    .chart-label-1
+    {
+      background: #215439;
+      top: -44px;
+      left: 21%;
+    }
+    .chart-label-2
+    {
+      background: #062560;
+      top: -44px;
+      right: calc(42% - 2.5rem);
+      text-align: right;
+    }
+    .chart-label-3
+    {
+      background: #612c8b;
+      top: 42px;
+      left: 48%;
+      text-align: right;
+    }
+    .chart-label-4
+    {
+      background: #5a5a5a;
+      top: 98px;
+      left: 35%;
+      width: calc(0px + 12%);
+      text-align: center;
+    }
+    .chart-label-5
+    {
+      background: #bb5121;
+      top: 42px;
+      left: calc(27% - 7rem);
+      text-align: left;
     }
     .bottom-charts > div, .top-charts > div {
       display: inline-block;
       /* border: none!important; */
-      margin: -3px;
+      margin: 0 -2px;
       padding: none!important;
+    }
+
+    .top-charts > div{
+      padding-bottom: 3rem;
+    }
+    .bottom-charts > div{
+      padding-top: 2rem;
     }
     .right-charts #right-upper-container{
       width:58.5%;
@@ -146,10 +201,7 @@
   <script src="highcharts/code/modules/accessibility.js"></script>
 
 
-  <!-- <svg width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
-    <polygon points="0,50 100,0 200,50 150,100 50,100" 
-    style="fill:lime;stroke:purple;stroke-width:0;width:100%;width:100%" />
-  </svg> -->
+  
   <div class="dashboard-counters">
     <div class="counter-div first-counter">
       <div class="number">4,292</div>
@@ -181,8 +233,16 @@
         <div class="middle-bottom-container-wrap">
         <div id="middle-bottom-container"></div></div>
         <div id="right-bottom-container"></div>
-        <!-- <div class="pentagon"></div> -->
-        <!-- <div class="pentagon2"></div> -->
+        <div class="chart-label chart-label-1">Service</div>
+        <div class="chart-label chart-label-2">Connection</div>
+        <div class="chart-label chart-label-3">Knowledge</div>
+        <div class="chart-label chart-label-4">Leadership</div>
+        <div class="chart-label chart-label-5">Communication</div>
+        <svg class="pentagon" width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
+          <polygon points="0,40 100,0 200,40 160,100 40,100" 
+          style="fill:white;stroke:white;stroke-width:0;width:100%;width:100%" />
+        </svg>
+        <div class="pentagon-text">June-October 2019</div>
       </div>
     </div>
   </div> 
@@ -191,11 +251,17 @@
   <!--For left sankey diagram-->
 	<script type="text/javascript">
     Highcharts.chart('left-chart-container', {
+        exporting:{
+          enabled: false
+        },
         chart:{
-          height: '800px'
+          height: '750px',
+          // width: '1100px',
+          backgroundColor: 'transparent',
+          plotBackgroundColor: "transparent",
         },
         title: {
-            text: 'Highcharts Sankey Diagram'
+            text: null
         },
         series: [{
             keys: ['from', 'to', 'weight', 'description'],
@@ -233,10 +299,14 @@
   <!--config-->
   <script>
     var bar_chart_config={
+        exporting:{
+          enabled: false
+        },
         chart: {
             type: 'column',
             backgroundColor: 'transparent',
-            plotBackgroundColor: "transparent"
+            plotBackgroundColor: "transparent",
+            height: '340px',
         },
         title: {
             text: null
@@ -286,7 +356,7 @@
     var bar_chart_series=[
               {
                   name: "Browsers",
-                  colorByPoint: true,
+                  //colorByPoint: true,
                   data: [
                       {
                           name: "Chrome",
@@ -308,7 +378,20 @@
                           y: 5.58,
                           drilldown: "Safari"
                       }
-                  ]
+                  ],
+                  color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#ff66AA'],
+                      [1, '#003399'],
+                    ]
+                  },
+                  shadow:true,
               }
           ];
     var bar_chart_data={
@@ -491,6 +574,626 @@
                   }
               ]
           };
+    var upper_left_chart_series=[
+        {
+            name: "Service",
+            maxPointWidth: 35,
+            // colorByPoint: true,
+            data: [
+                {
+                    name: "Program",
+                    y: 438,
+                    drilldown: "Program"
+                },
+                {
+                    name: "Service navigation",
+                    y: 357,
+                    drilldown: "Service navigation"
+                }
+            ],
+            color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#66e442'],
+                      [1, '#0f3f23'],
+                    ]
+                  },
+                  shadow:true,
+        }
+    ];
+    var upper_left_bar_chart_data={
+              series: [
+                  {
+                      name: "Program",
+                      id: "Program",
+                      data: [
+                          [
+                              "5 active early childhood programs",
+                              300
+                          ],
+                          [
+                              "Follow-up services to families",
+                              105
+                          ],
+                          [
+                              "Scholarship enrollment",
+                              10
+                          ],
+                          [
+                              "Countdown to Kindergarten - home visits",
+                              9
+                          ],
+                          [
+                              "Preschool children/families that received MH consultation services",
+                              7
+                          ],
+                          [
+                              "DOULA home visiting",
+                              5
+                          ],
+                          [
+                              "Tent",
+                              2
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Service navigation",
+                      id: "Service navigation",
+                      data: [
+                          [
+                              "Helping families find support they need",
+                              350
+                          ],
+                          [
+                              "WIC prescreening",
+                              7
+                          ]
+                      ]
+                  }
+              ]
+          };
+    var upper_right_chart_series=[
+              {
+                  name: "Connection",
+                  maxPointWidth: 35,
+                  // colorByPoint: true,
+                  data: [
+                      {
+                          name: "Community conversation",
+                          y: 438,
+                          drilldown: "Community conversation"
+                      },
+                      {
+                          name: "Family event outreach",
+                          y: 540,
+                          drilldown: "Family event outreach"
+                      },
+                      {
+                          name: "Outreach",
+                          y: 773,
+                          drilldown: "Outreach"
+                      },
+                      {
+                          name: "Recruitment & referral",
+                          y: 121,
+                          drilldown: "Recruitment & referral"
+                      }
+                  ],
+                  color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#95d1e2'],
+                      [1, '#072763'],
+                    ]
+                  },
+                  shadow:true,
+              }
+          ];
+    var upper_right_bar_chart_data={
+              series: [
+                  {
+                      name: "Community conversation",
+                      id: "Community conversation",
+                      data: [
+                          [
+                              "Advocacy efforts meeting",
+                              9
+                          ],
+                          [
+                              "Share and Connect - community conversation",
+                              45
+                          ],
+                          [
+                              "Community engagement meetings",
+                              143
+                          ],
+                          [
+                              "Transformation dinner",
+                              26
+                          ],
+                          [
+                              "Early Childhood Community Conversations",
+                              23
+                          ],
+                          [
+                              "Community conversation on Mental Health",
+                              9
+                          ],
+                          [
+                              "2 community conversations",
+                              132
+                          ],
+                          [
+                              "Town hall meeting & conversation",
+                              51
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Family event outreach",
+                      id: "Family event outreach",
+                      data: [
+                          [
+                              "HooTenanny Owl Music Festival",
+                              19
+                          ],
+                          [
+                              "Childrens Drumming at Deming Library",
+                              8
+                          ],
+                          [
+                              "Pow Wow social event",
+                              26
+                          ],
+                          [
+                              "Bufferfly pavillion",
+                              32
+                          ],
+                          [
+                              "Camp",
+                              47
+                          ],
+                          [
+                              "Art museum",
+                              5
+                          ],
+                          [
+                              "Library event",
+                              50
+                          ],
+                          [
+                              "Children's museum",
+                              18
+                          ],
+                          [
+                              "Zoo",
+                              40
+                          ],
+                          [
+                              "Museum of science",
+                              34
+                          ],
+                          [
+                              "Daddy J'S Campground",
+                              61
+                          ],
+                          [
+                              "Father's Day event",
+                              25
+                          ],
+                          [
+                              "Picnic",
+                              120
+                          ],
+                          [
+                              "Ice cream social at elementary schools",
+                              25
+                          ],
+                          [
+                              "Ferndale Music Night",
+                              4
+                          ],
+                          [
+                              "Birchwood International Market",
+                              26
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Outreach",
+                      id: "Outreach",
+                      data: [
+                          [
+                              "Connecting with families",
+                              21
+                          ],
+                          [
+                              "Sikh Temple",
+                              5
+                          ],
+                          [
+                              "Community engagement",
+                              29
+                          ],
+                          [
+                              "Head start coffee",
+                              6
+                          ],
+                          [
+                              "Engaging with participants of MAMA Project",
+                              11
+                          ],
+                          [
+                              "Breastfeeding fair",
+                              200
+                          ],
+                          [
+                              "Head start table",
+                              200
+                          ],
+                          [
+                              "Outreach for the Community Solutions Fund",
+                              125
+                          ],
+                          [
+                              "Outreach (Health Fare) (Cada Paso)",
+                              50
+                          ],
+                          [
+                              "Community outreach (Walk in the community)",
+                              75
+                          ],
+                          [
+                              "Cainhoy Community - Meet the teacher outreach event",
+                              25
+                          ],
+                          [
+                              "Mommy & Me Parenting Support Group",
+                              14
+                          ],
+                          [
+                              "Threading Connections",
+                              12
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Recruitment & referral",
+                      id: "Recruitment & referral",
+                      data: [
+                          [
+                              "Doula recruitment",
+                              3
+                          ],
+                          [
+                              "Doula recruitment",
+                              4
+                          ],
+                          [
+                              "Parent engagement for cohort",
+                              20
+                          ],
+                          [
+                              "Parents/families outreached or referred",
+                              40
+                          ],
+                          [
+                              "Stakeholder and parent breakfast to recruit ambassadors for trauma informed care for early childhood",
+                              54
+                          ]
+                      ]
+                  }
+              ]
+          };
+    var bottom_left_chart_series=[
+              {
+                  name: "Communication",
+                  maxPointWidth: 35,
+                  // colorByPoint: true,
+                  data: [
+                      {
+                          name: "Celebration",
+                          y: 438,
+                          drilldown: "Celebration"
+                      },
+                      {
+                          name: "Fundraising",
+                          y: 540,
+                          drilldown: "Fundraising"
+                      }
+                  ],
+                  color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#fec044'],
+                      [1, '#ca651d'],
+                    ]
+                  },
+                  shadow:true,
+              }
+          ];
+    var bottom_left_bar_chart_data={
+              series: [
+                  {
+                      name: "Celebration",
+                      id: "Celebration",
+                      data: [
+                          [
+                              "Recognition of nursing certifications, volunteers, families",
+                              30
+                          ],
+                          [
+                              "Community Solutions Fund passed into legislation",
+                              20
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Fundraising",
+                      id: "Fundraising",
+                      data: [
+                          [
+                              "Back to school event",
+                              75
+                          ]
+                      ]
+                  }
+              ]
+          };
+    var bottom_middle_chart_series=[
+              {
+                  name: "Leadership",
+                  maxPointWidth: 35,
+                  // colorByPoint: true,
+                  data: [
+                      {
+                          name: "Decision making",
+                          y: 438,
+                          drilldown: "Decision making"
+                      },
+                      {
+                          name: "Vlunteering",
+                          y: 540,
+                          drilldown: "Vlunteering"
+                      }
+                  ],
+                  color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#c2c2c2'],
+                      [1, '#3c3c3b'],
+                    ]
+                  },
+                  shadow:true,
+              }
+          ];
+    var bottom_middle_bar_chart_data={
+              series: [
+                  {
+                      name: "Decision making",
+                      id: "Decision making",
+                      data: [
+                          [
+                              "Provided feedback on playgound",
+                              6
+                          ],
+                          [
+                              "Engagement with the leaders in the community",
+                              6
+                          ],
+                          [
+                              "Family council gathering",
+                              14
+                          ],
+                          [
+                              "Monthly meeting",
+                              84
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Vlunteering",
+                      id: "Vlunteering",
+                      data: [
+                          [
+                              "Parents who volunteered",
+                              77
+                          ],
+                          [
+                              "Stakeholder and parent breakfast to recruit ambassadors for trauma informed care for early childhood",
+                              12
+                          ],
+                          [
+                              "Back to school event",
+                              5
+                          ]
+                      ]
+                  }
+              ]
+          };
+    var bottom_right_chart_series=[
+              {
+                  name: "Knowledge",
+                  maxPointWidth: 35,
+                  // colorByPoint: true,
+                  data: [
+                      {
+                          name: "Community education",
+                          y: 438,
+                          drilldown: "Community education"
+                      },
+                      {
+                          name: "Conference",
+                          y: 540,
+                          drilldown: "Conference"
+                      },
+                      {
+                          name: "Provider meeting",
+                          y: 540,
+                          drilldown: "Provider meeting"
+                      },
+                      {
+                          name: "Training & workshop",
+                          y: 540,
+                          drilldown: "Training & workshop"
+                      }
+                  ],
+                  color: {
+                    linearGradient: {
+                      x1: 0,
+                      x2: 0,
+                      y1: 0,
+                      y2: 1
+                    },
+                    stops: [
+                      [0, '#d8b4dd'],
+                      [1, '#3e1f58'],
+                    ]
+                  },
+                  shadow:true,
+              }
+          ];
+    var bottom_right_bar_chart_data={
+              series: [
+                  {
+                      name: "Community education",
+                      id: "Community education",
+                      data: [
+                          [
+                              "Chocolate Milk Screening",
+                              3
+                          ],
+                          [
+                              "2 school tours",
+                              50
+                          ],
+                          [
+                              "Social justice storytime",
+                              10
+                          ],
+                          [
+                              "Indaba to address historical trauma of slavery on children today",
+                              37
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Conference",
+                      id: "Conference",
+                      data: [
+                          [
+                              "Breastfeeding Panel",
+                              22
+                          ],
+                          [
+                              "Conference presentation",
+                              60
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Provider meeting",
+                      id: "Provider meeting",
+                      data: [
+                          [
+                              "Convenings to discuss best practices for engaging families",
+                              75
+                          ],
+                          [
+                              "Coaches and Workforce Development Specialists",
+                              256
+                          ]
+                      ]
+                  },
+                  {
+                      name: "Training & workshop",
+                      id: "Training & workshop",
+                      data: [
+                          [
+                              "Grandparents Forum on ACEs",
+                              140
+                          ],
+                          [
+                              "Community leadership training",
+                              18
+                          ],
+                          [
+                              "First Aid Mental Health 8-hour certification in mental health",
+                              25
+                          ],
+                          [
+                              "Lactation Counselors",
+                              10
+                          ],
+                          [
+                              "Share and Connect Facilitation Training",
+                              5
+                          ],
+                          [
+                              "Protect yourself",
+                              6
+                          ],
+                          [
+                              "Advocacy training",
+                              15
+                          ],
+                          [
+                              "Ambassador Orientation",
+                              20
+                          ],
+                          [
+                              "Webinar: ÒTrauma-Informed CareÓ series",
+                              117
+                          ],
+                          [
+                              "Newark Public School, Family Engagement Seminar, Training of Family Service Workers",
+                              150
+                          ],
+                          [
+                              "Keeping Babies and Children in Mind",
+                              30
+                          ],
+                          [
+                              "Teen Parents and Stakeholders",
+                              55
+                          ],
+                          [
+                              "Philadelphia Health Federation Collaborative ACEs/Trauma Meeting",
+                              42
+                          ],
+                          [
+                              "4 Workshops (academic related 3-k pre-k)",
+                              100
+                          ],
+                          [
+                              "2 Leadership trainings for LIFE parents (Presenter from Manhattan together)",
+                              50
+                          ]
+                      ]
+                  }
+              ]
+          };
   
   </script>
 
@@ -501,8 +1204,8 @@
     Highcharts.chart('left-upper-container', 
     $.extend(bar_chart_config,
     {
-        series: bar_chart_series,
-        drilldown: bar_chart_data,
+        series: upper_left_chart_series,
+        drilldown: upper_left_bar_chart_data,
         
     }))
   </script>
@@ -513,8 +1216,8 @@
     Highcharts.chart('right-upper-container', 
     $.extend(bar_chart_config,
     {
-        series: bar_chart_series,
-        drilldown: bar_chart_data,
+        series: upper_right_chart_series,
+        drilldown: upper_right_bar_chart_data,
     }))
   </script>
 
@@ -525,8 +1228,8 @@
     Highcharts.chart('left-bottom-container', 
     $.extend(bar_chart_config,
     {
-        series: bar_chart_series,
-        drilldown: bar_chart_data,
+        series: bottom_left_chart_series,
+        drilldown: bottom_left_bar_chart_data,
     }))
   </script>
 
@@ -536,8 +1239,8 @@
     Highcharts.chart('right-bottom-container', 
     $.extend(bar_chart_config,
     {
-        series: bar_chart_series,
-        drilldown: bar_chart_data,
+        series: bottom_right_chart_series,
+        drilldown: bottom_right_bar_chart_data,
     }))
   </script>
   
@@ -545,13 +1248,16 @@
   <script type="text/javascript">
     // Create the chart
     Highcharts.chart('middle-bottom-container', 
-    $.extend(true,bar_chart_config,
+    
+    $.extend( $.extend(true,bar_chart_config,
     {
         chart:{
-          height: '300px'
+          height: '255px'
         },
-        series: bar_chart_series,
-        drilldown: bar_chart_data,
+    }),
+    {
+        series: bottom_middle_chart_series,
+        drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
 
