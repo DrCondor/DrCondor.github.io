@@ -21,10 +21,10 @@
     }
     .dashboard-counters .counter-div{
         flex:1;
-        border: 10px solid gray;
+        /* border: 10px solid gray; */
         margin:1rem;
         padding: 0.7rem;
-        color: white;
+        color: rgba(0, 0, 0, 0.562);
     }
     .dashboard-counters .number{
       font-size: 3rem;
@@ -208,15 +208,15 @@
 
   
   <div class="dashboard-counters">
-    <div class="counter-div first-counter">
+    <div class="counter-div">
       <div class="number">4,292</div>
       <div class="description">Number of parents & families engaged</div>
     </div>
-    <div class="counter-div second-counter">
+    <div class="counter-div">
       <div class="number">84</div>
       <div class="description">Number of events, programs, activities</div>
     </div>
-    <div class="counter-div last-counter">
+    <div class="counter-div">
       <div class="number">10</div>
       <div class="description">Number of coalitions participated</div>
     </div>
@@ -295,40 +295,40 @@
             //colorAxis: 3,
             keys: ['from', 'to', 'weight', 'color','name'],
             data: [
-            ['Celebration', 'Parents', 30, '#fcbd42','communication'],
-['Celebration', 'Participants', 20, '#fcbd42','communication'],
-['Community Conversation', 'Parents', 9, '#92cddf','connection'],
-['Community Conversation', 'Parents & Families', 45, '#92cddf','connection'],
-['Community Conversation', 'Participants', 384, '#92cddf','connection'],
-['Community Education', 'Parents', 53, '#d2aed8','knowledge'],
-['Community Education', 'Participants', 47, '#d2aed8','knowledge'],
-['Community Outreach', 'Participants', 125, '#92cddf','connection'],
-['Conference', 'Participants', 82, '#d2aed8','knowledge'],
-['Decision Making', 'Families', 26, '#bcbcbc','leadership'],
-['Decision Making', 'Parents', 84, '#bcbcbc','leadership'],
-['Family Event Outreach', 'Families', 53, '#92cddf','connection'],
-['Family Event Outreach', 'Parents & Families', 287, '#92cddf','connection'],
-['Family Event Outreach', 'Participants', 200, '#92cddf','connection'],
-['Fundraising', 'Participants', 75, '#fcbd42','communication'],
-['Outreach', 'Families', 26, '#92cddf','connection'],
-['Outreach', 'Parents', 29, '#92cddf','connection'],
-['Outreach', 'Parents & Families', 6, '#92cddf','connection'],
-['Outreach', 'Participants', 587, '#92cddf','connection'],
-['Program', 'Families', 426, '#64e141','service'],
-['Program', 'Parents', 12, '#64e141','service'],
-['Provider Meeting', 'Direct Service Providers', 75, '#d2aed8','knowledge'],
-['Provider Meeting', 'Families', 256, '#d2aed8','knowledge'],
-['Recruitment & Referral', 'Families', 7, '#92cddf','connection'],
-['Recruitment & Referral', 'Parents', 20, '#92cddf','connection'],
-['Recruitment & Referral', 'Parents & Families', 40, '#92cddf','connection'],
-['Recruitment & Referral', 'Participants', 54, '#92cddf','connection'],
-['Service Navigation', 'Families', 350, '#64e141','service'],
-['Service Navigation', 'Parents', 7, '#64e141','service'],
-['Training & Workshop', 'Grandparents', 140, '#d2aed8','knowledge'],
-['Training & Workshop', 'Parents', 43, '#d2aed8','knowledge'],
-['Training & Workshop', 'Parents & Families', 21, '#d2aed8','knowledge'],
-['Training & Workshop', 'Participants', 579, '#d2aed8','knowledge'],
-['Volunteering', 'Parents', 94, '#bcbcbc','leadership'],
+                ['Celebration', 'Parents', 30, '#fec044','communication'],
+                ['Celebration', 'Participants', 20, '#fec044','communication'],
+                ['Community Conversation', 'Parents', 9, '#95d1e2','connection'],
+                ['Community Conversation', 'Parents & Families', 45, '#95d1e2','connection'],
+                ['Community Conversation', 'Participants', 384, '#95d1e2','connection'],
+                ['Community Education', 'Parents', 53, '#d8b4dd','knowledge'],
+                ['Community Education', 'Participants', 47, '#d8b4dd','knowledge'],
+                ['Community Outreach', 'Participants', 125, '#95d1e2','connection'],
+                ['Conference', 'Participants', 82, '#d8b4dd','knowledge'],
+                ['Decision Making', 'Families', 26, '#c2c2c2','leadership'],
+                ['Decision Making', 'Parents', 84, '#c2c2c2','leadership'],
+                ['Family Event Outreach', 'Families', 53, '#95d1e2','connection'],
+                ['Family Event Outreach', 'Parents & Families', 287, '#95d1e2','connection'],
+                ['Family Event Outreach', 'Participants', 200, '#95d1e2','connection'],
+                ['Fundraising', 'Participants', 75, '#fec044','communication'],
+                ['Outreach', 'Families', 26, '#95d1e2','connection'],
+                ['Outreach', 'Parents', 29, '#95d1e2','connection'],
+                ['Outreach', 'Parents & Families', 6, '#95d1e2','connection'],
+                ['Outreach', 'Participants', 587, '#95d1e2','connection'],
+                ['Program', 'Families', 426, '#66e442','service'],
+                ['Program', 'Parents', 12, '#66e442','service'],
+                ['Provider Meeting', 'Direct Service Providers', 75, '#d8b4dd','knowledge'],
+                ['Provider Meeting', 'Families', 256, '#d8b4dd','knowledge'],
+                ['Recruitment & Referral', 'Families', 7, '#95d1e2','connection'],
+                ['Recruitment & Referral', 'Parents', 20, '#95d1e2','connection'],
+                ['Recruitment & Referral', 'Parents & Families', 40, '#95d1e2','connection'],
+                ['Recruitment & Referral', 'Participants', 54, '#95d1e2','connection'],
+                ['Service Navigation', 'Families', 350, '#66e442','service'],
+                ['Service Navigation', 'Parents', 7, '#66e442','service'],
+                ['Training & Workshop', 'Grandparents', 140, '#d8b4dd','knowledge'],
+                ['Training & Workshop', 'Parents', 43, '#d8b4dd','knowledge'],
+                ['Training & Workshop', 'Parents & Families', 21, '#d8b4dd','knowledge'],
+                ['Training & Workshop', 'Participants', 579, '#d8b4dd','knowledge'],
+                ['Volunteering', 'Parents', 94, '#c2c2c2','leadership'],
             
             ],
             type: 'sankey',
@@ -653,7 +653,7 @@
                     },
                     stops: [
                       [0, '#66e442'],
-                      [1, '#0f3f23'],
+                      [1, '#66e442'],
                     ]
                   },
                   shadow:true,
@@ -752,7 +752,7 @@
                     },
                     stops: [
                       [0, '#95d1e2'],
-                      [1, '#072763'],
+                      [1, '#95d1e2'],
                     ]
                   },
                   shadow:true,
@@ -985,7 +985,7 @@
                     },
                     stops: [
                       [0, '#fec044'],
-                      [1, '#ca651d'],
+                      [1, '#fec044'],
                     ]
                   },
                   shadow:true,
@@ -1050,7 +1050,7 @@
                     },
                     stops: [
                       [0, '#c2c2c2'],
-                      [1, '#3c3c3b'],
+                      [1, '#c2c2c2'],
                     ]
                   },
                   shadow:true,
@@ -1141,7 +1141,7 @@
                     },
                     stops: [
                       [0, '#d8b4dd'],
-                      [1, '#3e1f58'],
+                      [1, '#d8b4dd'],
                     ]
                   },
                   shadow:true,
