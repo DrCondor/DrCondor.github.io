@@ -105,7 +105,7 @@
     }
     .chart-label{
       padding: 4px!important;
-      width: calc(91px + 10%);
+      /* width: calc(91px + 10%); */
       height: 17px;
       font-weight: bold;
       line-height: 17px;
@@ -115,36 +115,36 @@
     .chart-label-1
     {
       background: #215439;
-      top: -44px;
-      left: 21%;
+      top: -26px;
+      left: 0;
     }
     .chart-label-2
     {
       background: #062560;
-      top: -44px;
-      right: calc(42% - 2.5rem);
+      top: -26px;
+      left: 41.5%;
       text-align: right;
     }
     .chart-label-3
     {
       background: #612c8b;
-      top: 42px;
-      left: 48%;
+      top: 0px;
+      left: 52%;
       text-align: right;
     }
     .chart-label-4
     {
       background: #5a5a5a;
-      top: 98px;
-      left: 35%;
-      width: calc(0px + 12%);
+      top: 0;
+      left: 31%;
+      /* width: calc(0px + 12%); */
       text-align: center;
     }
     .chart-label-5
     {
       background: #bb5121;
-      top: 42px;
-      left: calc(27% - 7rem);
+      top: -1px;
+      left: 0;
       text-align: left;
     }
     .bottom-charts > div, .top-charts > div {
@@ -243,11 +243,11 @@
         <div class="chart-label chart-label-3">Knowledge</div>
         <div class="chart-label chart-label-4">Leadership</div>
         <div class="chart-label chart-label-5">Communication</div>
-        <svg class="pentagon" width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
+        <!-- <svg class="pentagon" width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
           <polygon points="0,40 100,0 200,40 175,100 28,100" 
           style="fill:white;stroke:white;stroke-width:0;width:100%;width:100%" />
-        </svg>
-        <div class="pentagon-text"> 
+        </svg> -->
+        <!-- <div class="pentagon-text"> 
             <ul>
                 <li>
                     Jun-Oct 2019
@@ -257,7 +257,7 @@
                 </li>
             </ul>
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div> 
@@ -374,6 +374,9 @@
             }
         },
         yAxis: {
+            min: 0,
+            max: 1000,
+            minRange: 1000,
             title: {
                 text: null,
             },
@@ -1325,7 +1328,7 @@
     $.extend( $.extend(true,bar_chart_config,
     {
         chart:{
-          height: '255px'
+          //height: '255px'
         },
     }),
     {
