@@ -340,6 +340,12 @@
 
   <!--config-->
   <script>
+    var custom_formatter_for_series = function() {
+        total = this.series.processedYData.reduce((a, b) => a + b, 0)
+        console.log(this)
+        var pcnt = (this.y / total) * 100;
+        return "<span style=\"color:"+this.color+"\">●</span><b> "+this.name+": "+this.y+"</b>  ("+Highcharts.numberFormat(pcnt)+"% of Total "+ this.series.name +")<br/>" ;
+    }
     var bar_chart_config={
         exporting:{
           enabled: false
@@ -620,6 +626,11 @@
         {
             name: "Service",
             maxPointWidth: 35,
+            tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
+                      },
             // colorByPoint: true,
             data: [
                 {
@@ -653,10 +664,6 @@
                   {
                       name: "Program",
                       id: "Program",
-                      tooltip:{
-                          pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y}</b><br/>",
-                          headerFormat: "<span style=\"font-size: 10px\">{point.key}</span><br/>",
-                      },
                       data: [
                           [
                               "5 active early childhood programs",
@@ -708,6 +715,11 @@
               {
                   name: "Connection",
                   maxPointWidth: 35,
+                  tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
+                      },
                   // colorByPoint: true,
                   data: [
                       {
@@ -946,6 +958,11 @@
               {
                   name: "Communication",
                   maxPointWidth: 35,
+                  tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
+                      },
                   // colorByPoint: true,
                   data: [
                       {
@@ -1006,6 +1023,11 @@
               {
                   name: "Leadership",
                   maxPointWidth: 35,
+                  tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
+                      },
                   // colorByPoint: true,
                   data: [
                       {
@@ -1082,6 +1104,11 @@
               {
                   name: "Knowledge",
                   maxPointWidth: 35,
+                  tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
+                      },
                   // colorByPoint: true,
                   data: [
                       {
