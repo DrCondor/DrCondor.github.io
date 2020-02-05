@@ -295,40 +295,40 @@
             //colorAxis: 3,
             keys: ['from', 'to', 'weight', 'color','name'],
             data: [
-                ['celebration', 'parents', 30, '#f8bab8','communication'],
-                ['celebration', 'participants', 20, '#f8bab8','communication'],
-                ['community conversation', 'parents', 9, '#d2d08f','connection'],
-                ['community conversation', 'parents & families', 45, '#d2d08f','connection'],
-                ['community conversation', 'participants', 384, '#d2d08f','connection'],
-                ['community education', 'parents', 53, '#97ddc1','knowledge'],
-                ['community education', 'participants', 47, '#97ddc1','knowledge'],
-                ['community outreach', 'participants', 125, '#d2d08f','connection'],
-                ['conference', 'participants', 82, '#97ddc1','knowledge'],
-                ['decision making', 'families', 26, '#97d7f7','leadership'],
-                ['decision making', 'parents', 84, '#97d7f7','leadership'],
-                ['family event outreach', 'families', 53, '#d2d08f','connection'],
-                ['family event outreach', 'parents & families', 287, '#d2d08f','connection'],
-                ['family event outreach', 'participants', 200, '#d2d08f','connection'],
-                ['fundraising', 'participants', 75, '#f8bab8','communication'],
-                ['outreach', 'families', 26, '#d2d08f','connection'],
-                ['outreach', 'parents', 29, '#d2d08f','connection'],
-                ['outreach', 'parents & families', 6, '#d2d08f','connection'],
-                ['outreach', 'participants', 587, '#d2d08f','connection'],
-                ['program', 'families', 426, '#f0b4f7','service'],
-                ['program', 'parents', 12, '#f0b4f7','service'],
-                ['provider meeting', 'direct service providers', 75, '#97ddc1','knowledge'],
-                ['provider meeting', 'families', 256, '#97ddc1','knowledge'],
-                ['recruitment & referral', 'families', 7, '#d2d08f','connection'],
-                ['recruitment & referral', 'parents', 20, '#d2d08f','connection'],
-                ['recruitment & referral', 'parents & families', 40, '#d2d08f','connection'],
-                ['recruitment & referral', 'participants', 54, '#d2d08f','connection'],
-                ['service navigation', 'families', 350, '#f0b4f7','service'],
-                ['service navigation', 'parents', 7, '#f0b4f7','service'],
-                ['training & workshop', 'grandparents', 140, '#97ddc1','knowledge'],
-                ['training & workshop', 'parents', 43, '#97ddc1','knowledge'],
-                ['training & workshop', 'parents & families', 21, '#97ddc1','knowledge'],
-                ['training & workshop', 'participants', 579, '#97ddc1','knowledge'],
-                ['volunteering', 'parents', 94, '#97d7f7','leadership'],
+            ['Celebration', 'Parents', 30, '#fcbd42','communication'],
+['Celebration', 'Participants', 20, '#fcbd42','communication'],
+['Community Conversation', 'Parents', 9, '#92cddf','connection'],
+['Community Conversation', 'Parents & Families', 45, '#92cddf','connection'],
+['Community Conversation', 'Participants', 384, '#92cddf','connection'],
+['Community Education', 'Parents', 53, '#d2aed8','knowledge'],
+['Community Education', 'Participants', 47, '#d2aed8','knowledge'],
+['Community Outreach', 'Participants', 125, '#92cddf','connection'],
+['Conference', 'Participants', 82, '#d2aed8','knowledge'],
+['Decision Making', 'Families', 26, '#bcbcbc','leadership'],
+['Decision Making', 'Parents', 84, '#bcbcbc','leadership'],
+['Family Event Outreach', 'Families', 53, '#92cddf','connection'],
+['Family Event Outreach', 'Parents & Families', 287, '#92cddf','connection'],
+['Family Event Outreach', 'Participants', 200, '#92cddf','connection'],
+['Fundraising', 'Participants', 75, '#fcbd42','communication'],
+['Outreach', 'Families', 26, '#92cddf','connection'],
+['Outreach', 'Parents', 29, '#92cddf','connection'],
+['Outreach', 'Parents & Families', 6, '#92cddf','connection'],
+['Outreach', 'Participants', 587, '#92cddf','connection'],
+['Program', 'Families', 426, '#64e141','service'],
+['Program', 'Parents', 12, '#64e141','service'],
+['Provider Meeting', 'Direct Service Providers', 75, '#d2aed8','knowledge'],
+['Provider Meeting', 'Families', 256, '#d2aed8','knowledge'],
+['Recruitment & Referral', 'Families', 7, '#92cddf','connection'],
+['Recruitment & Referral', 'Parents', 20, '#92cddf','connection'],
+['Recruitment & Referral', 'Parents & Families', 40, '#92cddf','connection'],
+['Recruitment & Referral', 'Participants', 54, '#92cddf','connection'],
+['Service Navigation', 'Families', 350, '#64e141','service'],
+['Service Navigation', 'Parents', 7, '#64e141','service'],
+['Training & Workshop', 'Grandparents', 140, '#d2aed8','knowledge'],
+['Training & Workshop', 'Parents', 43, '#d2aed8','knowledge'],
+['Training & Workshop', 'Parents & Families', 21, '#d2aed8','knowledge'],
+['Training & Workshop', 'Participants', 579, '#d2aed8','knowledge'],
+['Volunteering', 'Parents', 94, '#bcbcbc','leadership'],
             
             ],
             type: 'sankey',
@@ -628,9 +628,9 @@
                     drilldown: "Program"
                 },
                 {
-                    name: "Service navigation",
+                    name: "Service Navigation",
                     y: 357,
-                    drilldown: "Service navigation"
+                    drilldown: "Service Navigation"
                 }
             ],
             color: {
@@ -653,6 +653,10 @@
                   {
                       name: "Program",
                       id: "Program",
+                      tooltip:{
+                          pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y}</b><br/>",
+                          headerFormat: "<span style=\"font-size: 10px\">{point.key}</span><br/>",
+                      },
                       data: [
                           [
                               "5 active early childhood programs",
@@ -685,8 +689,8 @@
                       ]
                   },
                   {
-                      name: "Service navigation",
-                      id: "Service navigation",
+                      name: "Service Navigation",
+                      id: "Service Navigation",
                       data: [
                           [
                               "Helping families find support they need",
@@ -707,14 +711,14 @@
                   // colorByPoint: true,
                   data: [
                       {
-                          name: "Community conversation",
+                          name: "Community Conversation",
                           y: 438,
-                          drilldown: "Community conversation"
+                          drilldown: "Community Conversation"
                       },
                       {
-                          name: "Family event outreach",
+                          name: "Family event Outreach",
                           y: 540,
-                          drilldown: "Family event outreach"
+                          drilldown: "Family Event Outreach"
                       },
                       {
                           name: "Outreach",
@@ -722,9 +726,9 @@
                           drilldown: "Outreach"
                       },
                       {
-                          name: "Recruitment & referral",
+                          name: "Recruitment & Referral",
                           y: 121,
-                          drilldown: "Recruitment & referral"
+                          drilldown: "Recruitment & Referral"
                       }
                   ],
                   color: {
@@ -745,8 +749,8 @@
     var upper_right_bar_chart_data={
               series: [
                   {
-                      name: "Community conversation",
-                      id: "Community conversation",
+                      name: "Community Conversation",
+                      id: "Community Conversation",
                       data: [
                           [
                               "Advocacy efforts meeting",
@@ -783,8 +787,8 @@
                       ]
                   },
                   {
-                      name: "Family event outreach",
-                      id: "Family event outreach",
+                      name: "Family Event Outreach",
+                      id: "Family Event Outreach",
                       data: [
                           [
                               "HooTenanny Owl Music Festival",
@@ -911,8 +915,8 @@
                       ]
                   },
                   {
-                      name: "Recruitment & referral",
-                      id: "Recruitment & referral",
+                      name: "Recruitment & Referral",
+                      id: "Recruitment & Referral",
                       data: [
                           [
                               "Doula recruitment",
@@ -1005,14 +1009,14 @@
                   // colorByPoint: true,
                   data: [
                       {
-                          name: "Decision making",
+                          name: "Decision Making",
                           y: 438,
-                          drilldown: "Decision making"
+                          drilldown: "Decision Making"
                       },
                       {
-                          name: "Vlunteering",
+                          name: "Volunteering",
                           y: 540,
-                          drilldown: "Vlunteering"
+                          drilldown: "Volunteering"
                       }
                   ],
                   color: {
@@ -1033,8 +1037,8 @@
     var bottom_middle_bar_chart_data={
               series: [
                   {
-                      name: "Decision making",
-                      id: "Decision making",
+                      name: "Decision Making",
+                      id: "Decision Making",
                       data: [
                           [
                               "Provided feedback on playgound",
@@ -1055,8 +1059,8 @@
                       ]
                   },
                   {
-                      name: "Vlunteering",
-                      id: "Vlunteering",
+                      name: "Volunteering",
+                      id: "Volunteering",
                       data: [
                           [
                               "Parents who volunteered",
@@ -1081,9 +1085,9 @@
                   // colorByPoint: true,
                   data: [
                       {
-                          name: "Community education",
+                          name: "Community Education",
                           y: 438,
-                          drilldown: "Community education"
+                          drilldown: "Community Education"
                       },
                       {
                           name: "Conference",
@@ -1091,14 +1095,14 @@
                           drilldown: "Conference"
                       },
                       {
-                          name: "Provider meeting",
+                          name: "Provider Meeting",
                           y: 540,
-                          drilldown: "Provider meeting"
+                          drilldown: "Provider Meeting"
                       },
                       {
-                          name: "Training & workshop",
+                          name: "Training & Workshop",
                           y: 540,
-                          drilldown: "Training & workshop"
+                          drilldown: "Training & Workshop"
                       }
                   ],
                   color: {
@@ -1119,8 +1123,8 @@
     var bottom_right_bar_chart_data={
               series: [
                   {
-                      name: "Community education",
-                      id: "Community education",
+                      name: "Community Education",
+                      id: "Community Education",
                       data: [
                           [
                               "Chocolate Milk Screening",
@@ -1155,8 +1159,8 @@
                       ]
                   },
                   {
-                      name: "Provider meeting",
-                      id: "Provider meeting",
+                      name: "Provider Meeting",
+                      id: "Provider Meeting",
                       data: [
                           [
                               "Convenings to discuss best practices for engaging families",
@@ -1169,8 +1173,8 @@
                       ]
                   },
                   {
-                      name: "Training & workshop",
-                      id: "Training & workshop",
+                      name: "Training & Workshop",
+                      id: "Training & Workshop",
                       data: [
                           [
                               "Grandparents Forum on ACEs",
