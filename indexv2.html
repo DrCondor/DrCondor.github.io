@@ -112,29 +112,30 @@
       color: white;
       position: absolute;
     }
+    /* ['#35e400','#00b1e2','#fea900','#c2c2c2','#c732dd'] */
     .chart-label-1
     {
-      background: #66e442;
+      background: #35e400;
       top: -26px;
       left: 0;
     }
     .chart-label-2
     {
-      background: #95d1e2;
+      background: #00b1e2;
       top: -26px;
       left: 41.5%;
       text-align: right;
     }
     .chart-label-3
     {
-      background: #d8b4dd;
+      background: #c732dd;
       top: 0px;
       left: 52%;
       text-align: right;
     }
     .chart-label-4
     {
-      background: #c2c2c2;
+      background: #939393;
       top: 0;
       left: 31%;
       /* width: calc(0px + 12%); */
@@ -142,7 +143,7 @@
     }
     .chart-label-5
     {
-      background: #fec044;
+      background: #fea900;
       top: -1px;
       left: 0;
       text-align: left;
@@ -256,7 +257,10 @@
 
 
   <!--For left sankey diagram-->
-	<script type="text/javascript">
+    <script type="text/javascript">
+    
+    var chart_colors=['#35e400','#00b1e2','#fea900','#939393','#c732dd']
+
     Highcharts.chart('left-chart-container', {
         exporting:{
           enabled: false
@@ -287,40 +291,40 @@
             //colorAxis: 3,
             keys: ['from', 'to', 'weight', 'color','name'],
             data: [
-                ['Celebration', 'Parents', 30, '#fec044','communication'],
-                ['Celebration', 'Participants', 20, '#fec044','communication'],
-                ['Community Conversation', 'Parents', 9, '#95d1e2','connection'],
-                ['Community Conversation', 'Parents & Families', 45, '#95d1e2','connection'],
-                ['Community Conversation', 'Participants', 384, '#95d1e2','connection'],
-                ['Community Education', 'Parents', 53, '#d8b4dd','knowledge'],
-                ['Community Education', 'Participants', 47, '#d8b4dd','knowledge'],
-                ['Community Outreach', 'Participants', 125, '#95d1e2','connection'],
-                ['Conference', 'Participants', 82, '#d8b4dd','knowledge'],
-                ['Decision Making', 'Families', 26, '#c2c2c2','leadership'],
-                ['Decision Making', 'Parents', 84, '#c2c2c2','leadership'],
-                ['Family Event Outreach', 'Families', 53, '#95d1e2','connection'],
-                ['Family Event Outreach', 'Parents & Families', 287, '#95d1e2','connection'],
-                ['Family Event Outreach', 'Participants', 200, '#95d1e2','connection'],
-                ['Fundraising', 'Participants', 75, '#fec044','communication'],
-                ['Outreach', 'Families', 26, '#95d1e2','connection'],
-                ['Outreach', 'Parents', 29, '#95d1e2','connection'],
-                ['Outreach', 'Parents & Families', 6, '#95d1e2','connection'],
-                ['Outreach', 'Participants', 587, '#95d1e2','connection'],
-                ['Program', 'Families', 426, '#66e442','service'],
-                ['Program', 'Parents', 12, '#66e442','service'],
-                ['Provider Meeting', 'Direct Service Providers', 75, '#d8b4dd','knowledge'],
-                ['Provider Meeting', 'Families', 256, '#d8b4dd','knowledge'],
-                ['Recruitment & Referral', 'Families', 7, '#95d1e2','connection'],
-                ['Recruitment & Referral', 'Parents', 20, '#95d1e2','connection'],
-                ['Recruitment & Referral', 'Parents & Families', 40, '#95d1e2','connection'],
-                ['Recruitment & Referral', 'Participants', 54, '#95d1e2','connection'],
-                ['Service Navigation', 'Families', 350, '#66e442','service'],
-                ['Service Navigation', 'Parents', 7, '#66e442','service'],
-                ['Training & Workshop', 'Grandparents', 140, '#d8b4dd','knowledge'],
-                ['Training & Workshop', 'Parents', 43, '#d8b4dd','knowledge'],
-                ['Training & Workshop', 'Parents & Families', 21, '#d8b4dd','knowledge'],
-                ['Training & Workshop', 'Participants', 579, '#d8b4dd','knowledge'],
-                ['Volunteering', 'Parents', 94, '#c2c2c2','leadership'],
+                ['Celebration', 'Parents', 30, chart_colors[4],'communication'],
+                ['Celebration', 'Participants', 20, chart_colors[4],'communication'],
+                ['Community Conversation', 'Parents', 9, chart_colors[1],'connection'],
+                ['Community Conversation', 'Parents & Families', 45, chart_colors[1],'connection'],
+                ['Community Conversation', 'Participants', 384, chart_colors[1],'connection'],
+                ['Community Education', 'Parents', 53, chart_colors[2],'knowledge'],
+                ['Community Education', 'Participants', 47, chart_colors[2],'knowledge'],
+                ['Community Outreach', 'Participants', 125, chart_colors[1],'connection'],
+                ['Conference', 'Participants', 82, chart_colors[2],'knowledge'],
+                ['Decision Making', 'Families', 26, chart_colors[3],'leadership'],
+                ['Decision Making', 'Parents', 84, chart_colors[3],'leadership'],
+                ['Family Event Outreach', 'Families', 53, chart_colors[1],'connection'],
+                ['Family Event Outreach', 'Parents & Families', 287, chart_colors[1],'connection'],
+                ['Family Event Outreach', 'Participants', 200, chart_colors[1],'connection'],
+                ['Fundraising', 'Participants', 75, chart_colors[4],'communication'],
+                ['Outreach', 'Families', 26, chart_colors[1],'connection'],
+                ['Outreach', 'Parents', 29, chart_colors[1],'connection'],
+                ['Outreach', 'Parents & Families', 6, chart_colors[1],'connection'],
+                ['Outreach', 'Participants', 587, chart_colors[1],'connection'],
+                ['Program', 'Families', 426, chart_colors[0],'service'],
+                ['Program', 'Parents', 12, chart_colors[0],'service'],
+                ['Provider Meeting', 'Direct Service Providers', 75, chart_colors[2],'knowledge'],
+                ['Provider Meeting', 'Families', 256, chart_colors[2],'knowledge'],
+                ['Recruitment & Referral', 'Families', 7, chart_colors[1],'connection'],
+                ['Recruitment & Referral', 'Parents', 20, chart_colors[1],'connection'],
+                ['Recruitment & Referral', 'Parents & Families', 40, chart_colors[1],'connection'],
+                ['Recruitment & Referral', 'Participants', 54, chart_colors[1],'connection'],
+                ['Service Navigation', 'Families', 350, chart_colors[0],'service'],
+                ['Service Navigation', 'Parents', 7, chart_colors[0],'service'],
+                ['Training & Workshop', 'Grandparents', 140, chart_colors[2],'knowledge'],
+                ['Training & Workshop', 'Parents', 43, chart_colors[2],'knowledge'],
+                ['Training & Workshop', 'Parents & Families', 21, chart_colors[2],'knowledge'],
+                ['Training & Workshop', 'Participants', 579, chart_colors[2],'knowledge'],
+                ['Volunteering', 'Parents', 94, chart_colors[3],'leadership'],
             
             ],
             type: 'sankey',
@@ -426,8 +430,8 @@
                       y2: 1
                     },
                     stops: [
-                      [0, '#66e442'],
-                      [1, '#66e442'],
+                      [0, chart_colors[0]],
+                      [1, chart_colors[0]],
                     ]
                   },
                   shadow:false,
@@ -525,8 +529,8 @@
                       y2: 1
                     },
                     stops: [
-                      [0, '#95d1e2'],
-                      [1, '#95d1e2'],
+                      [0, chart_colors[1]],
+                      [1, chart_colors[1]],
                     ]
                   },
                   shadow:false,
@@ -758,8 +762,8 @@
                       y2: 1
                     },
                     stops: [
-                      [0, '#fec044'],
-                      [1, '#fec044'],
+                      [0, chart_colors[2]],
+                      [1, chart_colors[2]],
                     ]
                   },
                   shadow:false,
@@ -823,8 +827,9 @@
                       y2: 1
                     },
                     stops: [
-                      [0, '#c2c2c2'],
-                      [1, '#c2c2c2'],
+                      [0, chart_colors[3]],
+                      [1, chart_colors[3]],
+                      
                     ]
                   },
                   shadow:false,
@@ -914,8 +919,8 @@
                       y2: 1
                     },
                     stops: [
-                      [0, '#d8b4dd'],
-                      [1, '#d8b4dd'],
+                      [0, chart_colors[4]],
+                      [1, chart_colors[4]],
                     ]
                   },
                   shadow:false,
