@@ -54,10 +54,13 @@
     .dashboard-charts{
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
     }
     
     .dashboard-charts > div{
       flex:1;
+      /* max-width: 30rem; */
+      min-width: 33rem;
     }
     .right-charts{
       width:100%;
@@ -194,7 +197,7 @@
     }
     .chart-popup-bg{
         display: none;
-        position: absolute;
+        position: fixed;
         top:0;
         left:0;
         width: 100%;
