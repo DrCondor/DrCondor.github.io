@@ -15,9 +15,14 @@
     body{
       background: #ecf0f5;
     }
+    .dashboard-header{
+        text-align: center;
+        color: rgba(0, 0, 0, 0.705);
+        font-size: 1rem;
+    }
     .dashboard-counters{
-      width: 100%;
-      display: flex;
+        width: 100%;
+        display: flex;
     }
     .dashboard-counters .counter-div{
         flex:1;
@@ -232,6 +237,9 @@
 
 
   
+  <div class="dashboard-header">
+      <h4 class="dashboard-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat diam ut venenatis tellus in metus vulputate. Sagittis nisl rhoncus mattis rhoncus urna neque viverra. Donec enim diam vulputate ut pharetra sit. Ipsum a arcu cursus vitae congue mauris rhoncus aenean vel. Sed risus pretium quam vulputate dignissim. Duis at tellus at urna condimentum mattis. Venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin. In aliquam sem fringilla ut morbi. Enim facilisis gravida neque convallis a cras semper. Eu nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Nisl nisi scelerisque eu ultrices vitae. Volutpat est velit egestas dui id ornare arcu odio. Id donec ultrices tincidunt arcu non sodales. Ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt. Leo integer malesuada nunc vel risus commodo viverra maecenas accumsan. A lacus vestibulum sed arcu non odio. Id interdum velit laoreet id donec ultrices. Facilisis gravida neque convallis a cras semper auctor neque.</h4>
+  </div>
   <div class="dashboard-counters">
     <div class="counter-div">
       <div class="number">4,292</div>
@@ -290,7 +298,17 @@
         
   <!--For left sankey diagram-->
     <script type="text/javascript">
-    
+
+    var custom_formatter_for_series = function() {
+            total = this.series.processedYData.reduce((a, b) => a + b, 0)
+            console.log(this)
+            // console.log(this.series.nodes["0"])
+            // console.log(this.series.nodes.filter((item)=>{return item.id == this.from})[0].sum)
+            total_sum = (this.series.nodes.filter((item)=>{return item.id == this.from})[0].sum)
+            var pcnt = (this.weight / total_sum) * 100;
+            return "<span style=\"color:"+this.color+"\">●</span><b> "+this.name+": "+this.weight+"</b>  ("+Highcharts.numberFormat(pcnt)+"% of "+ this.from +")<br/>" ;
+        }
+        
     var chart_colors=['#35e400','#00b1e2','#fea900','#939393','#c732dd']
 
     Highcharts.chart('left-chart-container', {
@@ -306,9 +324,14 @@
         title: {
             text: null
         },
+        // tooltip:{
+        //     pointFormat: "<b>{point.name}</b> ({point.weight})<br/>",
+        //     headerFormat: ""
+        // },
         tooltip:{
-            pointFormat: "<b>{point.name}</b> ({point.weight})<br/>",
-            headerFormat: ""
+            headerFormat: "{point.name}",
+            // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+            pointFormatter: custom_formatter_for_series
         },
         series: [{
             dataLabels:{
@@ -323,40 +346,74 @@
             //colorAxis: 3,
             keys: ['from', 'to', 'weight', 'color','name'],
             data: [
-                ['Celebration', 'Parents', 30, chart_colors[4],'communication'],
-                ['Celebration', 'Participants', 20, chart_colors[4],'communication'],
-                ['Fundraising', 'Participants', 75, chart_colors[4],'communication'],
-                ['Community Conversation', 'Parents', 9, chart_colors[1],'connection'],
-                ['Community Conversation', 'Parents & Families', 45, chart_colors[1],'connection'],
-                ['Community Conversation', 'Participants', 384, chart_colors[1],'connection'],
-                ['Community Outreach', 'Participants', 125, chart_colors[1],'connection'],
-                ['Family Event Outreach', 'Families', 53, chart_colors[1],'connection'],
-                ['Family Event Outreach', 'Parents & Families', 287, chart_colors[1],'connection'],
-                ['Family Event Outreach', 'Participants', 200, chart_colors[1],'connection'],
-                ['Outreach', 'Families', 26, chart_colors[1],'connection'],
-                ['Outreach', 'Parents', 29, chart_colors[1],'connection'],
-                ['Outreach', 'Parents & Families', 6, chart_colors[1],'connection'],
-                ['Outreach', 'Participants', 587, chart_colors[1],'connection'],
-                ['Recruitment & Referral', 'Families', 7, chart_colors[1],'connection'],
-                ['Recruitment & Referral', 'Parents', 20, chart_colors[1],'connection'],
-                ['Recruitment & Referral', 'Parents & Families', 40, chart_colors[1],'connection'],
-                ['Recruitment & Referral', 'Participants', 54, chart_colors[1],'connection'],
-                ['Community Education', 'Parents', 53, chart_colors[2],'knowledge'],
-                ['Community Education', 'Participants', 47, chart_colors[2],'knowledge'],
-                ['Conference', 'Participants', 82, chart_colors[2],'knowledge'],
-                ['Provider Meeting', 'Direct Service Providers', 75, chart_colors[2],'knowledge'],
-                ['Provider Meeting', 'Families', 256, chart_colors[2],'knowledge'],
-                ['Training & Workshop', 'Grandparents', 140, chart_colors[2],'knowledge'],
-                ['Training & Workshop', 'Parents', 43, chart_colors[2],'knowledge'],
-                ['Training & Workshop', 'Parents & Families', 21, chart_colors[2],'knowledge'],
-                ['Training & Workshop', 'Participants', 579, chart_colors[2],'knowledge'],
-                ['Decision Making', 'Families', 26, chart_colors[3],'leadership'],
-                ['Decision Making', 'Parents', 84, chart_colors[3],'leadership'],
-                ['Volunteering', 'Parents', 94, chart_colors[3],'leadership'],
-                ['Program', 'Families', 426, chart_colors[0],'service'],
-                ['Program', 'Parents', 12, chart_colors[0],'service'],
-                ['Service Navigation', 'Families', 350, chart_colors[0],'service'],
-                ['Service Navigation', 'Parents', 7, chart_colors[0],'service'],
+                ['Communication', 'Celebration', 30, chart_colors[4],'Communication'],
+                ['Communication', 'Celebration', 20, chart_colors[4],'Communication'],
+                ['Communication', 'Fundraising', 75, chart_colors[4],'Communication'],
+                ['Connection', 'Community Conversation', 9, chart_colors[1],'Connection'],
+                ['Connection', 'Community Conversation', 45, chart_colors[1],'Connection'],
+                ['Connection', 'Community Conversation', 384, chart_colors[1],'Connection'],
+                ['Connection', 'Community Outreach', 125, chart_colors[1],'Connection'],
+                ['Connection', 'Family Event Outreach', 53, chart_colors[1],'Connection'],
+                ['Connection', 'Family Event Outreach', 287, chart_colors[1],'Connection'],
+                ['Connection', 'Family Event Outreach', 200, chart_colors[1],'Connection'],
+                ['Connection', 'Outreach', 26, chart_colors[1],'Connection'],
+                ['Connection', 'Outreach', 29, chart_colors[1],'Connection'],
+                ['Connection', 'Outreach', 6, chart_colors[1],'Connection'],
+                ['Connection', 'Outreach', 587, chart_colors[1],'Connection'],
+                ['Connection', 'Recruitment & Referral', 7, chart_colors[1],'Connection'],
+                ['Connection', 'Recruitment & Referral', 20, chart_colors[1],'Connection'],
+                ['Connection', 'Recruitment & Referral', 40, chart_colors[1],'Connection'],
+                ['Connection', 'Recruitment & Referral', 54, chart_colors[1],'Connection'],
+                ['Knowledge', 'Community Education', 53, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Community Education', 47, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Conference', 82, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Provider Meeting', 75, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Provider Meeting', 256, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Training & Workshop', 140, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Training & Workshop', 43, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Training & Workshop', 21, chart_colors[2],'Knowledge'],
+                ['Knowledge', 'Training & Workshop', 579, chart_colors[2],'Knowledge'],
+                ['Leadership', 'Decision Making', 26, chart_colors[3],'Leadership'],
+                ['Leadership', 'Decision Making', 84, chart_colors[3],'Leadership'],
+                ['Leadership', 'Volunteering', 94, chart_colors[3],'Leadership'],
+                ['Service', 'Program', 426, chart_colors[0],'Service'],
+                ['Service', 'Program', 12, chart_colors[0],'Service'],
+                ['Service', 'Service Navigation', 350, chart_colors[0],'Service'],
+                ['Service', 'Service Navigation', 7, chart_colors[0],'Service'],
+                ['Volunteering', 'Parents', 94, chart_colors[3],'Leadership'],
+                ['Decision Making', 'Parents', 84, chart_colors[3],'Leadership'],
+                ['Celebration', 'Parents', 30, chart_colors[4],'Communication'],
+                ['Celebration', 'Participants', 20, chart_colors[4],'Communication'],
+                ['Fundraising', 'Participants', 75, chart_colors[4],'Communication'],
+                ['Community Conversation', 'Parents', 9, chart_colors[1],'Connection'],
+                ['Community Conversation', 'Parents & Families', 45, chart_colors[1],'Connection'],
+                ['Community Conversation', 'Participants', 384, chart_colors[1],'Connection'],
+                ['Community Outreach', 'Participants', 125, chart_colors[1],'Connection'],
+                ['Outreach', 'Families', 26, chart_colors[1],'Connection'],
+                ['Outreach', 'Parents', 29, chart_colors[1],'Connection'],
+                ['Outreach', 'Parents & Families', 6, chart_colors[1],'Connection'],
+                ['Outreach', 'Participants', 587, chart_colors[1],'Connection'],
+                ['Family Event Outreach', 'Participants', 200, chart_colors[1],'Connection'],
+                ['Family Event Outreach', 'Parents & Families', 287, chart_colors[1],'Connection'],
+                ['Family Event Outreach', 'Families', 53, chart_colors[1],'Connection'],
+                ['Recruitment & Referral', 'Families', 7, chart_colors[1],'Connection'],
+                ['Recruitment & Referral', 'Parents', 20, chart_colors[1],'Connection'],
+                ['Recruitment & Referral', 'Parents & Families', 40, chart_colors[1],'Connection'],
+                ['Recruitment & Referral', 'Participants', 54, chart_colors[1],'Connection'],
+                ['Community Education', 'Parents', 53, chart_colors[2],'Knowledge'],
+                ['Community Education', 'Participants', 47, chart_colors[2],'Knowledge'],
+                ['Conference', 'Participants', 82, chart_colors[2],'Knowledge'],
+                ['Training & Workshop', 'Parents', 43, chart_colors[2],'Knowledge'],
+                ['Training & Workshop', 'Participants', 579, chart_colors[2],'Knowledge'],
+                ['Training & Workshop', 'Grandparents', 140, chart_colors[2],'Knowledge'],
+                ['Training & Workshop', 'Parents & Families', 21, chart_colors[2],'Knowledge'],
+                ['Provider Meeting', 'Families', 256, chart_colors[2],'Knowledge'],
+                ['Provider Meeting', 'Direct Service Providers', 75, chart_colors[2],'Knowledge'],
+                ['Decision Making', 'Families', 26, chart_colors[3],'Leadership'],
+                ['Program', 'Families', 426, chart_colors[0],'Service'],
+                ['Program', 'Parents', 12, chart_colors[0],'Service'],
+                ['Service Navigation', 'Families', 350, chart_colors[0],'Service'],
+                ['Service Navigation', 'Parents', 7, chart_colors[0],'Service'],
             
             ],
             type: 'sankey',
