@@ -187,6 +187,30 @@
       width:31%;
       background: #fdfcd1;
     }
+    .chart-popup-bg{
+        display: none;
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(128, 128, 128, 0.3);
+    }
+    .chart-popup-bg.show{
+        display: unset;
+    }
+    .chart-popup-content{
+        position: absolute;
+        width: 800px;
+        height: 600px;
+        background: white;
+        top:calc(50vh - 400px);
+        left:calc(50vw - 400px);
+    }
+    #popup-chart-container{
+        width: 100%;
+        height: 100%;
+    }
   
   
   
@@ -224,38 +248,46 @@
   </div>
 
 
-
+  
   <div class="dashboard-charts">
-    <div class="left-chart">
-      <div id="left-chart-container"></div>
-    </div>
-    <div class="right-charts">
-      <div class="top-charts" style="position: relative;">
-        <div id="left-upper-container"></div>
-        <div id="right-upper-container"></div>
-        <div class="pentagon-text"> 
-                   Jun-Oct 2019
+      <div class="left-chart">
+          <div id="left-chart-container"></div>
         </div>
-      </div>
-      <div class="bottom-charts">
-        <div id="left-bottom-container"></div>
-        <div class="middle-bottom-container-wrap">
-        <div id="middle-bottom-container"></div></div>
-        <div id="right-bottom-container"></div>
-        <div class="chart-label chart-label-1">Service</div>
-        <div class="chart-label chart-label-2">Connection</div>
-        <div class="chart-label chart-label-3">Knowledge</div>
-        <div class="chart-label chart-label-4">Leadership</div>
-        <div class="chart-label chart-label-5">Communication</div>
-        <!-- <svg class="pentagon" width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
-          <polygon points="0,40 100,0 200,40 175,100 28,100" 
-          style="fill:white;stroke:white;stroke-width:0;width:100%;width:100%" />
-        </svg> -->
-      </div>
-    </div>
-  </div> 
+        <div class="right-charts">
+            <div class="top-charts" style="position: relative;">
+                <div id="left-upper-container"></div>
+                <div id="right-upper-container"></div>
+                <div class="pentagon-text"> 
+                    Jun-Oct 2019
+                </div>
+            </div>
+            <div class="bottom-charts">
+                <div id="left-bottom-container"></div>
+                <div class="middle-bottom-container-wrap">
+                    <div id="middle-bottom-container"></div></div>
+                    <div id="right-bottom-container"></div>
+                    <div class="chart-label chart-label-1">Service</div>
+                    <div class="chart-label chart-label-2">Connection</div>
+                    <div class="chart-label chart-label-3">Knowledge</div>
+                    <div class="chart-label chart-label-4">Leadership</div>
+                    <div class="chart-label chart-label-5">Communication</div>
+                    <!-- <svg class="pentagon" width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="none">
+                        <polygon points="0,40 100,0 200,40 175,100 28,100" 
+                        style="fill:white;stroke:white;stroke-width:0;width:100%;width:100%" />
+                    </svg> -->
+                </div>
+            </div>
+        </div> 
+        <div class="chart-popup-bg">
+            <div class="chart-popup-content">
+                <!-- title? -->
+                <div id="popup-chart-container"></div>
+            </div>
+        </div>
 
-
+        
+        
+        
   <!--For left sankey diagram-->
     <script type="text/javascript">
     
@@ -392,9 +424,18 @@
                 dataLabels: {
                     enabled: true,
                     format: '{point.y}'
-                }
+                },
+                // point: {
+                //     events: {
+                //         click: function () {
+                //             console.log(this)
+                //             alert('Category: ' + this.category + ', value: ' + this.y);
+                //         }
+                //     }
+                // }
             }
         },
+        
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
             pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
@@ -506,7 +547,7 @@
                           drilldown: "Community Conversation"
                       },
                       {
-                          name: "Family event Outreach",
+                          name: "Family Event Outreach",
                           y: 540,
                           drilldown: "Family Event Outreach"
                       },
@@ -1046,6 +1087,64 @@
                   }
               ]
           };
+
+          function generate_series_from_data(data, data_name,color){
+                selected_data=data.series.filter((item)=>{return item.name == data_name})[0]
+                series = {
+                        name: data_name,
+                        maxPointWidth: 35,
+                        tooltip:{
+                                headerFormat: "{point.name}",
+                                // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                                pointFormatter: custom_formatter_for_series
+                            },
+                        // colorByPoint: true,
+                        data: [],
+                        color: {
+                            linearGradient: {
+                            x1: 0,
+                            x2: 0,
+                            y1: 0,
+                            y2: 1
+                            },
+                            stops: [
+                            [0, color],
+                            [1, color],
+                            ]
+                        },
+                        shadow:false,
+                    }
+                $.each(selected_data.data,(k,v)=>{
+                    series.data.push({
+                                name: v[0],
+                                y: v[1],
+                                //drilldown: "Community Education"
+                            })
+                })
+                return [series];
+            }
+            
+
+            function show_drilldown_popup(data,data_name,color){
+                Highcharts.chart('popup-chart-container', 
+                $.extend( $.extend(true,bar_chart_config,
+                {
+                    chart:{
+                    height: '600px'
+                    },
+                    yAxis: {
+                        min: 0,
+                        max: null,
+                        minRange: null,
+                    },
+                }),
+                {
+                    series: generate_series_from_data(data,data_name,color),
+                    // drilldown: bottom_middle_bar_chart_data,
+                }))
+                $('.chart-popup-bg').addClass('show')
+            }
+            $('.chart-popup-bg').on('click', ()=> {$('.chart-popup-bg').removeClass('show')})
   
   </script>
 
@@ -1053,12 +1152,30 @@
   <!--For left upper bar chart-->
   <script type="text/javascript">
     // Create the chart
-    Highcharts.chart('left-upper-container', 
-    $.extend(bar_chart_config,
+    Highcharts.chart('left-upper-container',
+    $.extend( $.extend(true,bar_chart_config,
+    {
+        chart:{
+          //height: '255px'
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            console.log(this)
+                            //alert('Category: ' + this.name + ', value: ' + this.y);
+                            console.log(upper_left_chart_series[0].color.stops[0])
+                            show_drilldown_popup(upper_left_bar_chart_data, this.name ,upper_left_chart_series[0].color.stops[0][1]);
+                        }
+                    }
+                }
+            }
+        },
+    }),
     {
         series: upper_left_chart_series,
-        drilldown: upper_left_bar_chart_data,
-        
+        //drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
 
@@ -1066,10 +1183,29 @@
   <script type="text/javascript">
     // Create the chart
     Highcharts.chart('right-upper-container', 
-    $.extend(bar_chart_config,
+    $.extend( $.extend(true,bar_chart_config,
+    {
+        chart:{
+          //height: '255px'
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            console.log(this)
+                            //alert('Category: ' + this.name + ', value: ' + this.y);
+                            console.log(upper_right_chart_series[0].color.stops[0])
+                            show_drilldown_popup(upper_right_bar_chart_data, this.name ,upper_right_chart_series[0].color.stops[0][1]);
+                        }
+                    }
+                }
+            }
+        },
+    }),
     {
         series: upper_right_chart_series,
-        drilldown: upper_right_bar_chart_data,
+        //drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
 
@@ -1078,10 +1214,29 @@
   <script type="text/javascript">
     // Create the chart
     Highcharts.chart('left-bottom-container', 
-    $.extend(bar_chart_config,
+    $.extend( $.extend(true,bar_chart_config,
+    {
+        chart:{
+          //height: '255px'
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            console.log(this)
+                            //alert('Category: ' + this.name + ', value: ' + this.y);
+                            console.log(bottom_left_chart_series[0].color.stops[0])
+                            show_drilldown_popup(bottom_left_bar_chart_data, this.name ,bottom_left_chart_series[0].color.stops[0][1]);
+                        }
+                    }
+                }
+            }
+        },
+    }),
     {
         series: bottom_left_chart_series,
-        drilldown: bottom_left_bar_chart_data,
+        //drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
 
@@ -1089,10 +1244,29 @@
   <script type="text/javascript">
     // Create the chart
     Highcharts.chart('right-bottom-container', 
-    $.extend(bar_chart_config,
+    $.extend( $.extend(true,bar_chart_config,
+    {
+        chart:{
+          //height: '255px'
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            console.log(this)
+                            //alert('Category: ' + this.name + ', value: ' + this.y);
+                            console.log(bottom_right_chart_series[0].color.stops[0])
+                            show_drilldown_popup(bottom_right_bar_chart_data, this.name ,bottom_right_chart_series[0].color.stops[0][1]);
+                        }
+                    }
+                }
+            }
+        },
+    }),
     {
         series: bottom_right_chart_series,
-        drilldown: bottom_right_bar_chart_data,
+        //drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
   
@@ -1106,10 +1280,24 @@
         chart:{
           //height: '255px'
         },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            console.log(this)
+                            //alert('Category: ' + this.name + ', value: ' + this.y);
+                            console.log(bottom_middle_chart_series[0].color.stops[0])
+                            show_drilldown_popup(bottom_middle_bar_chart_data, this.name ,bottom_middle_chart_series[0].color.stops[0][1]);
+                        }
+                    }
+                }
+            }
+        },
     }),
     {
         series: bottom_middle_chart_series,
-        drilldown: bottom_middle_bar_chart_data,
+        //drilldown: bottom_middle_bar_chart_data,
     }))
   </script>
 
