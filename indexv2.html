@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://xdt30f1pje.execute-api.us-west-2.amazonaws.com/v1/sankey.js"></script>
+  <script src="https://xdt30f1pje.execute-api.us-west-2.amazonaws.com/v1/chart_data.js"></script>
   <script type="text/javascript">
     //process sankey colors
     var chart_colors=['#35e400','#00b1e2','#fea900','#939393','#c732dd']
@@ -22,16 +22,6 @@
     } 
     console.log(sankey_data)
 
-    // sankey_data=sankey_data.sort(function (a, b) {
-    // if (a[1] > b[1]) {
-    //     return -1;
-    // }
-    // if (b[1] > a[1]) {
-    //     return 1;
-    // }
-    // return 0;
-    // });
-    
     sankey_data=sankey_data.sort(function (a, b) {
     if (a[3] > b[3]) {
         return 1;
@@ -167,7 +157,7 @@
     }
     .pentagon-text {
       text-align: left;
-      left: 6%;
+      left: 13%;
       width: 19.2%;
       top: 18px;
       padding-top:0 !important;
@@ -194,13 +184,13 @@
     .chart-label-1
     {
       background: #35e400;
-      top: -26px;
+      top: 0px;
       left: 0;
     }
     .chart-label-2
     {
       background: #00b1e2;
-      top: -26px;
+      top: 0px;
       left: 41.5%;
       text-align: right;
     }
@@ -335,6 +325,8 @@
             <div class="top-charts" style="position: relative;">
                 <div id="left-upper-container"></div>
                 <div id="right-upper-container"></div>
+                <div class="chart-label chart-label-1">Service</div>
+                <div class="chart-label chart-label-2">Connection</div>
                 <div class="pentagon-text"> 
                     Jun-Oct 2019
                 </div>
@@ -344,8 +336,6 @@
                 <div class="middle-bottom-container-wrap">
                     <div id="middle-bottom-container"></div></div>
                     <div id="right-bottom-container"></div>
-                    <div class="chart-label chart-label-1">Service</div>
-                    <div class="chart-label chart-label-2">Connection</div>
                     <div class="chart-label chart-label-3">Knowledge</div>
                     <div class="chart-label chart-label-4">Leadership</div>
                     <div class="chart-label chart-label-5">Communication</div>
@@ -498,732 +488,115 @@
             pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
         }
       }
-    var upper_left_chart_series=[
-        {
-            name: "Service",
-            maxPointWidth: 35,
-            tooltip:{
+
+    function generate_series_for_drilldown(data, data_name,color){
+        selected_data=data.filter((item)=>{return item.name == data_name})[0]
+        series = {
+                name: data_name,
+                maxPointWidth: 35,
+                tooltip:{
                         headerFormat: "{point.name}",
                         // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
                         pointFormatter: custom_formatter_for_series
-                      },
-            // colorByPoint: true,
-            data: [
-                {
-                    name: "Program",
-                    y: 438,
-                    drilldown: "Program"
+                    },
+                // colorByPoint: true,
+                data: [],
+                color: {
+                    linearGradient: {
+                    x1: 0,
+                    x2: 0,
+                    y1: 0,
+                    y2: 1
+                    },
+                    stops: [
+                    [0, color],
+                    [1, color],
+                    ]
                 },
-                {
-                    name: "Service Navigation",
-                    y: 357,
-                    drilldown: "Service Navigation"
-                }
-            ],
-            color: {
-                    linearGradient: {
-                      x1: 0,
-                      x2: 0,
-                      y1: 0,
-                      y2: 1
-                    },
-                    stops: [
-                      [0, chart_colors[0]],
-                      [1, chart_colors[0]],
-                    ]
-                  },
-                  shadow:false,
-        }
-    ];
-    var upper_left_bar_chart_data={
-              series: [
-                  {
-                      name: "Program",
-                      id: "Program",
-                      data: [
-                          [
-                              "5 active early childhood programs",
-                              300
-                          ],
-                          [
-                              "Follow-up services to families",
-                              105
-                          ],
-                          [
-                              "Scholarship enrollment",
-                              10
-                          ],
-                          [
-                              "Countdown to Kindergarten - home visits",
-                              9
-                          ],
-                          [
-                              "Preschool children/families that received MH consultation services",
-                              7
-                          ],
-                          [
-                              "DOULA home visiting",
-                              5
-                          ],
-                          [
-                              "Tent",
-                              2
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Service Navigation",
-                      id: "Service Navigation",
-                      data: [
-                          [
-                              "Helping families find support they need",
-                              350
-                          ],
-                          [
-                              "WIC prescreening",
-                              7
-                          ]
-                      ]
-                  }
-              ]
-          };
-    var upper_right_chart_series=[
-              {
-                  name: "Connection",
-                  maxPointWidth: 35,
-                  tooltip:{
-                        headerFormat: "{point.name}",
-                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
-                        pointFormatter: custom_formatter_for_series
-                      },
-                  // colorByPoint: true,
-                  data: [
-                      {
-                          name: "Community Conversation",
-                          y: 438,
-                          drilldown: "Community Conversation"
-                      },
-                      {
-                          name: "Family Event Outreach",
-                          y: 540,
-                          drilldown: "Family Event Outreach"
-                      },
-                      {
-                          name: "Outreach",
-                          y: 773,
-                          drilldown: "Outreach"
-                      },
-                      {
-                          name: "Recruitment & Referral",
-                          y: 121,
-                          drilldown: "Recruitment & Referral"
-                      }
-                  ],
-                  color: {
-                    linearGradient: {
-                      x1: 0,
-                      x2: 0,
-                      y1: 0,
-                      y2: 1
-                    },
-                    stops: [
-                      [0, chart_colors[1]],
-                      [1, chart_colors[1]],
-                    ]
-                  },
-                  shadow:false,
-              }
-          ];
-    var upper_right_bar_chart_data={
-              series: [
-                  {
-                      name: "Community Conversation",
-                      id: "Community Conversation",
-                      data: [
-                          [
-                              "Advocacy efforts meeting",
-                              9
-                          ],
-                          [
-                              "Share and Connect - community conversation",
-                              45
-                          ],
-                          [
-                              "Community engagement meetings",
-                              143
-                          ],
-                          [
-                              "Transformation dinner",
-                              26
-                          ],
-                          [
-                              "Early Childhood Community Conversations",
-                              23
-                          ],
-                          [
-                              "Community conversation on Mental Health",
-                              9
-                          ],
-                          [
-                              "2 community conversations",
-                              132
-                          ],
-                          [
-                              "Town hall meeting & conversation",
-                              51
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Family Event Outreach",
-                      id: "Family Event Outreach",
-                      data: [
-                          [
-                              "HooTenanny Owl Music Festival",
-                              19
-                          ],
-                          [
-                              "Childrens Drumming at Deming Library",
-                              8
-                          ],
-                          [
-                              "Pow Wow social event",
-                              26
-                          ],
-                          [
-                              "Bufferfly pavillion",
-                              32
-                          ],
-                          [
-                              "Camp",
-                              47
-                          ],
-                          [
-                              "Art museum",
-                              5
-                          ],
-                          [
-                              "Library event",
-                              50
-                          ],
-                          [
-                              "Children's museum",
-                              18
-                          ],
-                          [
-                              "Zoo",
-                              40
-                          ],
-                          [
-                              "Museum of science",
-                              34
-                          ],
-                          [
-                              "Daddy J'S Campground",
-                              61
-                          ],
-                          [
-                              "Father's Day event",
-                              25
-                          ],
-                          [
-                              "Picnic",
-                              120
-                          ],
-                          [
-                              "Ice cream social at elementary schools",
-                              25
-                          ],
-                          [
-                              "Ferndale Music Night",
-                              4
-                          ],
-                          [
-                              "Birchwood International Market",
-                              26
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Outreach",
-                      id: "Outreach",
-                      data: [
-                          [
-                              "Connecting with families",
-                              21
-                          ],
-                          [
-                              "Sikh Temple",
-                              5
-                          ],
-                          [
-                              "Community engagement",
-                              29
-                          ],
-                          [
-                              "Head start coffee",
-                              6
-                          ],
-                          [
-                              "Engaging with participants of MAMA Project",
-                              11
-                          ],
-                          [
-                              "Breastfeeding fair",
-                              200
-                          ],
-                          [
-                              "Head start table",
-                              200
-                          ],
-                          [
-                              "Outreach for the Community Solutions Fund",
-                              125
-                          ],
-                          [
-                              "Outreach (Health Fare) (Cada Paso)",
-                              50
-                          ],
-                          [
-                              "Community outreach (Walk in the community)",
-                              75
-                          ],
-                          [
-                              "Cainhoy Community - Meet the teacher outreach event",
-                              25
-                          ],
-                          [
-                              "Mommy & Me Parenting Support Group",
-                              14
-                          ],
-                          [
-                              "Threading Connections",
-                              12
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Recruitment & Referral",
-                      id: "Recruitment & Referral",
-                      data: [
-                          [
-                              "Doula recruitment",
-                              3
-                          ],
-                          [
-                              "Doula recruitment",
-                              4
-                          ],
-                          [
-                              "Parent engagement for cohort",
-                              20
-                          ],
-                          [
-                              "Parents/families outreached or referred",
-                              40
-                          ],
-                          [
-                              "Stakeholder and parent breakfast to recruit ambassadors for trauma informed care for early childhood",
-                              54
-                          ]
-                      ]
-                  }
-              ]
-          };
-    var bottom_left_chart_series=[
-              {
-                  name: "Communication",
-                  maxPointWidth: 35,
-                  tooltip:{
-                        headerFormat: "{point.name}",
-                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
-                        pointFormatter: custom_formatter_for_series
-                      },
-                  // colorByPoint: true,
-                  data: [
-                      {
-                          name: "Celebration",
-                          y: 438,
-                          drilldown: "Celebration"
-                      },
-                      {
-                          name: "Fundraising",
-                          y: 540,
-                          drilldown: "Fundraising"
-                      }
-                  ],
-                  color: {
-                    linearGradient: {
-                      x1: 0,
-                      x2: 0,
-                      y1: 0,
-                      y2: 1
-                    },
-                    stops: [
-                      [0, chart_colors[2]],
-                      [1, chart_colors[2]],
-                    ]
-                  },
-                  shadow:false,
-              }
-          ];
-    var bottom_left_bar_chart_data={
-              series: [
-                  {
-                      name: "Celebration",
-                      id: "Celebration",
-                      data: [
-                          [
-                              "Recognition of nursing certifications, volunteers, families",
-                              30
-                          ],
-                          [
-                              "Community Solutions Fund passed into legislation",
-                              20
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Fundraising",
-                      id: "Fundraising",
-                      data: [
-                          [
-                              "Back to school event",
-                              75
-                          ]
-                      ]
-                  }
-              ]
-          };
-    var bottom_middle_chart_series=[
-              {
-                  name: "Leadership",
-                  maxPointWidth: 35,
-                  tooltip:{
-                        headerFormat: "{point.name}",
-                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
-                        pointFormatter: custom_formatter_for_series
-                      },
-                  // colorByPoint: true,
-                  data: [
-                      {
-                          name: "Decision Making",
-                          y: 438,
-                          drilldown: "Decision Making"
-                      },
-                      {
-                          name: "Volunteering",
-                          y: 540,
-                          drilldown: "Volunteering"
-                      }
-                  ],
-                  color: {
-                    linearGradient: {
-                      x1: 0,
-                      x2: 0,
-                      y1: 0,
-                      y2: 1
-                    },
-                    stops: [
-                      [0, chart_colors[3]],
-                      [1, chart_colors[3]],
-                      
-                    ]
-                  },
-                  shadow:false,
-              }
-          ];
-    var bottom_middle_bar_chart_data={
-              series: [
-                  {
-                      name: "Decision Making",
-                      id: "Decision Making",
-                      data: [
-                          [
-                              "Provided feedback on playgound",
-                              6
-                          ],
-                          [
-                              "Engagement with the leaders in the community",
-                              6
-                          ],
-                          [
-                              "Family council gathering",
-                              14
-                          ],
-                          [
-                              "Monthly meeting",
-                              84
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Volunteering",
-                      id: "Volunteering",
-                      data: [
-                          [
-                              "Parents who volunteered",
-                              77
-                          ],
-                          [
-                              "Stakeholder and parent breakfast",
-                              12
-                          ],
-                          [
-                              "Back to school event",
-                              5
-                          ]
-                      ]
-                  }
-              ]
-          };
-    var bottom_right_chart_series=[
-              {
-                  name: "Knowledge",
-                  maxPointWidth: 35,
-                  tooltip:{
-                        headerFormat: "{point.name}",
-                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
-                        pointFormatter: custom_formatter_for_series
-                      },
-                  // colorByPoint: true,
-                  data: [
-                      {
-                          name: "Community Education",
-                          y: 100,
-                          drilldown: "Community Education"
-                      },
-                      {
-                          name: "Conference",
-                          y: 82,
-                          drilldown: "Conference"
-                      },
-                      {
-                          name: "Provider Meeting",
-                          y: 331,
-                          drilldown: "Provider Meeting"
-                      },
-                      {
-                          name: "Training & Workshop",
-                          y: 783,
-                          drilldown: "Training & Workshop"
-                      }
-                  ],
-                  color: {
-                    linearGradient: {
-                      x1: 0,
-                      x2: 0,
-                      y1: 0,
-                      y2: 1
-                    },
-                    stops: [
-                      [0, chart_colors[4]],
-                      [1, chart_colors[4]],
-                    ]
-                  },
-                  shadow:false,
-              }
-          ];
-    var bottom_right_bar_chart_data={
-              series: [
-                  {
-                      name: "Community Education",
-                      id: "Community Education",
-                      data: [
-                          [
-                              "Chocolate Milk Screening",
-                              3
-                          ],
-                          [
-                              "2 school tours",
-                              50
-                          ],
-                          [
-                              "Social justice storytime",
-                              10
-                          ],
-                          [
-                              "Indaba to address historical trauma of slavery on children today",
-                              37
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Conference",
-                      id: "Conference",
-                      data: [
-                          [
-                              "Breastfeeding Panel",
-                              22
-                          ],
-                          [
-                              "Conference presentation",
-                              60
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Provider Meeting",
-                      id: "Provider Meeting",
-                      data: [
-                          [
-                              "Convenings to discuss best practices for engaging families",
-                              75
-                          ],
-                          [
-                              "Coaches and Workforce Development Specialists",
-                              256
-                          ]
-                      ]
-                  },
-                  {
-                      name: "Training & Workshop",
-                      id: "Training & Workshop",
-                      data: [
-                          [
-                              "Grandparents Forum on ACEs",
-                              140
-                          ],
-                          [
-                              "Community leadership training",
-                              18
-                          ],
-                          [
-                              "First Aid Mental Health 8-hour certification in mental health",
-                              25
-                          ],
-                          [
-                              "Lactation Counselors",
-                              10
-                          ],
-                          [
-                              "Share and Connect Facilitation Training",
-                              5
-                          ],
-                          [
-                              "Protect yourself",
-                              6
-                          ],
-                          [
-                              "Advocacy training",
-                              15
-                          ],
-                          [
-                              "Ambassador Orientation",
-                              20
-                          ],
-                          [
-                              "Webinar: ÒTrauma-Informed CareÓ series",
-                              117
-                          ],
-                          [
-                              "Newark Public School, Family Engagement Seminar, Training of Family Service Workers",
-                              150
-                          ],
-                          [
-                              "Keeping Babies and Children in Mind",
-                              30
-                          ],
-                          [
-                              "Teen Parents and Stakeholders",
-                              55
-                          ],
-                          [
-                              "Philadelphia Health Federation Collaborative ACEs/Trauma Meeting",
-                              42
-                          ],
-                          [
-                              "4 Workshops (academic related 3-k pre-k)",
-                              100
-                          ],
-                          [
-                              "2 Leadership trainings for LIFE parents (Presenter from Manhattan together)",
-                              50
-                          ]
-                      ]
-                  }
-              ]
-          };
-
-          function generate_series_from_data(data, data_name,color){
-                selected_data=data.series.filter((item)=>{return item.name == data_name})[0]
-                series = {
-                        name: data_name,
-                        maxPointWidth: 35,
-                        tooltip:{
-                                headerFormat: "{point.name}",
-                                // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
-                                pointFormatter: custom_formatter_for_series
-                            },
-                        // colorByPoint: true,
-                        data: [],
-                        color: {
-                            linearGradient: {
-                            x1: 0,
-                            x2: 0,
-                            y1: 0,
-                            y2: 1
-                            },
-                            stops: [
-                            [0, color],
-                            [1, color],
-                            ]
-                        },
-                        shadow:false,
-                    }
-                $.each(selected_data.data,(k,v)=>{
-                    series.data.push({
-                                name: v[0],
-                                y: v[1],
-                                //drilldown: "Community Education"
-                            })
-                })
-                return [series];
+                shadow:false,
             }
-            
+        $.each(selected_data.data,(k,v)=>{
+            series.data.push({
+                        name: v.name,
+                        y: v.value,
+                        //drilldown: "Community Education"
+                    })
+        })
+        return [series];
+    }
 
-            function show_drilldown_popup(data,data_name,color){
-                Highcharts.chart('popup-chart-container', 
-                $.extend( $.extend(true,bar_chart_config,
-                {
-                    chart:{
-                    height: '600px'
+    function generate_series_from_remote_data(data, data_name,color){
+        selected_data=data
+        series = {
+                name: data_name,
+                maxPointWidth: 35,
+                tooltip:{
+                        headerFormat: "{point.name}",
+                        // pointFormat: "<span style=\"color:{point.color}\">●</span> {series.name}: <b>{point.y} {point.total}%</b><br/>",
+                        pointFormatter: custom_formatter_for_series
                     },
-                    yAxis: {
-                        min: 0,
-                        max: null,
-                        minRange: null,
+                // colorByPoint: true,
+                data: [],
+                color: {
+                    linearGradient: {
+                    x1: 0,
+                    x2: 0,
+                    y1: 0,
+                    y2: 1
                     },
-                }),
-                {
-                    series: generate_series_from_data(data,data_name,color),
-                    // drilldown: bottom_middle_bar_chart_data,
-                }))
-                $('.chart-popup-bg').addClass('show')
+                    stops: [
+                    [0, color],
+                    [1, color],
+                    ]
+                },
+                shadow:false,
             }
-            $('.chart-popup-bg').on('click', ()=> {$('.chart-popup-bg').removeClass('show')})
+        $.each(selected_data,(k,v)=>{
+            series.data.push({
+                        name: v.name,
+                        y: v.value,
+                        //drilldown: "Community Education"
+                    })
+        })
+        return [series];
+    }
+    
+
+    function show_drilldown_popup(data,data_name,color){
+        Highcharts.chart('popup-chart-container', 
+        $.extend( $.extend(true,bar_chart_config,
+        {
+            chart:{
+            height: '600px'
+            },
+            yAxis: {
+                min: 0,
+                max: null,
+                minRange: null,
+            },
+        }),
+        {
+            series: generate_series_for_drilldown(data,data_name,color),
+            // drilldown: bottom_middle_bar_chart_data,
+        }))
+        $('.chart-popup-bg').addClass('show')
+    }
+    $('.chart-popup-bg').on('click', ()=> {$('.chart-popup-bg').removeClass('show')})
   
   </script>
 
 
   <!--For left upper bar chart-->
   <script type="text/javascript">
-    // Create the chart
     Highcharts.chart('left-upper-container',
     $.extend( $.extend(true,bar_chart_config,
     {
-        chart:{
-          //height: '255px'
-        },
         plotOptions: {
             series: {
                 point: {
                     events: {
                         click: function () {
-                            console.log(this)
-                            //alert('Category: ' + this.name + ', value: ' + this.y);
-                            console.log(upper_left_chart_series[0].color.stops[0])
-                            show_drilldown_popup(upper_left_bar_chart_data, this.name ,upper_left_chart_series[0].color.stops[0][1]);
+                            show_drilldown_popup(service_series, this.name , chart_colors[0]);
                         }
                     }
                 }
@@ -1231,29 +604,21 @@
         },
     }),
     {
-        series: upper_left_chart_series,
-        //drilldown: bottom_middle_bar_chart_data,
+        series: generate_series_from_remote_data(service_series, "Service",chart_colors[0])
     }))
   </script>
 
   <!--For right upper bar chart-->
   <script type="text/javascript">
-    // Create the chart
     Highcharts.chart('right-upper-container', 
     $.extend( $.extend(true,bar_chart_config,
     {
-        chart:{
-          //height: '255px'
-        },
         plotOptions: {
             series: {
                 point: {
                     events: {
                         click: function () {
-                            console.log(this)
-                            //alert('Category: ' + this.name + ', value: ' + this.y);
-                            console.log(upper_right_chart_series[0].color.stops[0])
-                            show_drilldown_popup(upper_right_bar_chart_data, this.name ,upper_right_chart_series[0].color.stops[0][1]);
+                            show_drilldown_popup(connection_series, this.name , chart_colors[1]);
                         }
                     }
                 }
@@ -1261,30 +626,22 @@
         },
     }),
     {
-        series: upper_right_chart_series,
-        //drilldown: bottom_middle_bar_chart_data,
+        series: generate_series_from_remote_data(connection_series, "Connection",chart_colors[1])
     }))
   </script>
 
 
   <!--For left bottom bar chart-->
   <script type="text/javascript">
-    // Create the chart
     Highcharts.chart('left-bottom-container', 
     $.extend( $.extend(true,bar_chart_config,
     {
-        chart:{
-          //height: '255px'
-        },
         plotOptions: {
             series: {
                 point: {
                     events: {
                         click: function () {
-                            console.log(this)
-                            //alert('Category: ' + this.name + ', value: ' + this.y);
-                            console.log(bottom_left_chart_series[0].color.stops[0])
-                            show_drilldown_popup(bottom_left_bar_chart_data, this.name ,bottom_left_chart_series[0].color.stops[0][1]);
+                            show_drilldown_popup(communication_series, this.name , chart_colors[2]);
                         }
                     }
                 }
@@ -1292,29 +649,21 @@
         },
     }),
     {
-        series: bottom_left_chart_series,
-        //drilldown: bottom_middle_bar_chart_data,
+        series: generate_series_from_remote_data(communication_series, "Communication",chart_colors[2])
     }))
   </script>
 
   <!--For right bottom bar chart-->
   <script type="text/javascript">
-    // Create the chart
     Highcharts.chart('right-bottom-container', 
     $.extend( $.extend(true,bar_chart_config,
     {
-        chart:{
-          //height: '255px'
-        },
         plotOptions: {
             series: {
                 point: {
                     events: {
                         click: function () {
-                            console.log(this)
-                            //alert('Category: ' + this.name + ', value: ' + this.y);
-                            console.log(bottom_right_chart_series[0].color.stops[0])
-                            show_drilldown_popup(bottom_right_bar_chart_data, this.name ,bottom_right_chart_series[0].color.stops[0][1]);
+                            show_drilldown_popup(knowledge_series, this.name , chart_colors[4]);
                         }
                     }
                 }
@@ -1322,30 +671,21 @@
         },
     }),
     {
-        series: bottom_right_chart_series,
-        //drilldown: bottom_middle_bar_chart_data,
+        series: generate_series_from_remote_data(knowledge_series, "Knowledge",chart_colors[4])
     }))
   </script>
   
   <!--For middle bottom bar chart-->
   <script type="text/javascript">
-    // Create the chart
     Highcharts.chart('middle-bottom-container', 
-    
     $.extend( $.extend(true,bar_chart_config,
     {
-        chart:{
-          //height: '255px'
-        },
         plotOptions: {
             series: {
                 point: {
                     events: {
                         click: function () {
-                            console.log(this)
-                            //alert('Category: ' + this.name + ', value: ' + this.y);
-                            console.log(bottom_middle_chart_series[0].color.stops[0])
-                            show_drilldown_popup(bottom_middle_bar_chart_data, this.name ,bottom_middle_chart_series[0].color.stops[0][1]);
+                            show_drilldown_popup(leadership_series, this.name , chart_colors[3]);
                         }
                     }
                 }
@@ -1353,8 +693,7 @@
         },
     }),
     {
-        series: bottom_middle_chart_series,
-        //drilldown: bottom_middle_bar_chart_data,
+        series: generate_series_from_remote_data(leadership_series, "Leadership",chart_colors[3])
     }))
   </script>
 
